@@ -12,8 +12,11 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import { useNavigate } from 'react-router-dom'
+import { FcHome } from "react-icons/fc";
+import { SlSettings } from "react-icons/sl";
+import { useNavigate } from "react-router-dom";
+import { FcAbout } from "react-icons/fc";
+import { useAppStore } from "../appStore";
 
 
 const drawerWidth = 240;
@@ -48,7 +51,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -68,18 +70,16 @@ const Drawer = styled(MuiDrawer, {
 
 export default function Sidenav() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+//   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
-  
-
-
+  const open = useAppStore((state) => state.dopen);
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <IconButton onClick={() => setOpen(!open)}>
+          <IconButton onClick={() => updateOpen(!open)}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
             ) : (
@@ -110,7 +110,7 @@ export default function Sidenav() {
                   justifyContent: "center",
                 }}
               >
-                <InboxIcon />
+                <FcHome />
               </ListItemIcon>
               <ListItemText primary="Home" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
@@ -136,7 +136,7 @@ export default function Sidenav() {
                   justifyContent: "center",
                 }}
               >
-                <InboxIcon />
+                <FcAbout />
               </ListItemIcon>
               <ListItemText primary="About" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
@@ -162,7 +162,7 @@ export default function Sidenav() {
                   justifyContent: "center",
                 }}
               >
-                <InboxIcon />
+                <SlSettings />
               </ListItemIcon>
               <ListItemText primary="Settings" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
@@ -173,5 +173,3 @@ export default function Sidenav() {
     </Box>
   );
 }
-
-
